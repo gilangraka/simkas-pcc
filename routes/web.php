@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ManageKasController;
+use App\Http\Controllers\ManageUserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RiwayatKasController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,6 +28,7 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+Route::permanentRedirect('/', '/login');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -33,6 +38,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::resource('dashboard', DashboardController::class);
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('manage-user', ManageUserController::class);
+    Route::resource('manage-kas', ManageKasController::class);
+    Route::resource('riwayat-kas', RiwayatKasController::class);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
