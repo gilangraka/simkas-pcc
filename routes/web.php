@@ -39,11 +39,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('dashboard', DashboardController::class);
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('manage-user', ManageUserController::class);
-    Route::resource('manage-kas', ManageKasController::class);
-    Route::resource('riwayat-kas', RiwayatKasController::class);
+    Route::resource('dashboard', DashboardController::class)->middleware('can:Dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('can:Dashboard');
+    Route::resource('manage-user', ManageUserController::class)->middleware('can:Manage User');
+    Route::resource('manage-kas', ManageKasController::class)->middleware('can:Manage Kas');
+    Route::resource('riwayat-kas', RiwayatKasController::class)->middleware('can:Riwayat Kas');
 });
 
 require __DIR__ . '/auth.php';
