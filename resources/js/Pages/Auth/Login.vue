@@ -86,7 +86,7 @@ const submit = () => {
                     Log in
                 </PrimaryButton>
 
-                <a href="#" class="btn w-full"
+                <a :href="route('redirect')" class="btn w-full"
                     ><span class="pi pi-google"></span> Login dengan Google</a
                 >
             </div>
